@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Anamnese | Jessica Rocha Sobrancelhas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bibliotecas para gerar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #374151; /* Cor de texto padrão para garantir visibilidade */
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #d1a6ad; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #b98b92; }
+        .required-label::after { content: '*'; color: #ef4444; margin-left: 4px; }
+        .tab-active {
+            border-bottom-color: #ec4899;
+            color: #ec4899;
+            font-weight: 600;
+        }
+    </style>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-pink-50">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-2xl">
+        <!-- Abas de Navegação -->
+        <div class="mb-6 border-b border-gray-200">
+            <nav class="flex -mb-px space-x-4 sm:space-x-6" aria-label="Tabs">
+                 <button id="tabPrices" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 tab-active">
+                    Tabela de Preços
+                </button>
+                <button id="tabForm" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Ficha de Anamnese
+                </button>
+                 <a href="https://www.instagram.com/jessicarochabrows/" target="_blank" rel="noopener noreferrer" class="whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-sm text-gray-500 hover:text-pink-600 hover:border-pink-300 transition">
+                    Meu Instagram
+                </a>
+                <button id="tabReport" class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                    Relatório
+                </button>
+            </nav>
+        </div>
+        
+        <!-- Conteúdo da Tabela de Preços -->
+        <div id="pricesView">
+             <header class="text-center mb-8">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Serviços e Preços</h1>
+                <p class="text-gray-600 mt-2">Confira os serviços que ofereço para deixar seu olhar ainda mais poderoso.</p>
+            </header>
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-6">
+                <div class="space-y-4">
+                    <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Design personalizado de sobrancelhas <span class="text-xs text-gray-500">(pinça e/ou cera)</span></p>
+                        <p class="font-semibold text-gray-800">R$40,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Design com henna</p>
+                        <p class="font-semibold text-gray-800">R$50,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Design com tintura</p>
+                        <p class="font-semibold text-gray-800">R$55,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Spa de sobrancelhas <span class="text-xs text-gray-500">(limpeza, esfoliação, máscara e hidratação)</span></p>
+                        <p class="font-semibold text-gray-800">R$60,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Spa de sobrancelhas + design</p>
+                        <p class="font-semibold text-gray-800">R$70,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Brow Lamination <span class="text-xs text-gray-500">(com coloração e hidratação)</span></p>
+                        <p class="font-semibold text-gray-800">R$100,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Brow Lamination <span class="text-xs text-gray-500">(sem coloração)</span></p>
+                        <p class="font-semibold text-gray-800">R$85,00</p>
+                    </div>
+                     <!-- Item de serviço -->
+                    <div class="flex justify-between items-center border-b border-pink-100 pb-3">
+                        <p class="text-gray-700">Manutenção com hidratação, B.L <span class="text-xs text-gray-500">(retorno em até 20-30 dias)</span></p>
+                        <p class="font-semibold text-pink-600">brinde / 5% off no Design</p>
+                    </div>
+                      <!-- Item de serviço -->
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-gray-700">Buço <span class="text-xs text-gray-500">(pinça ou cera quente)</span></p>
+                        <p class="font-semibold text-gray-800">R$20,00</p>
+                    </div>
+                </div>
+                 <div class="pt-4">
+                    <button id="goToFormBtn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-transform transform hover:scale-105 shadow-md">
+                        <span>Preencher Ficha e Agendar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo do Formulário -->
+        <div id="formView" class="hidden">
+            <header class="text-center mb-8">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">FICHA DE ANAMNESE E TERMO DE CONSENTIMENTO</h1>
+                <p class="text-gray-600 mt-2">Olá! Seja muito bem-vinda! Para garantir que seu procedimento seja realizado com total segurança e o resultado fique perfeito para você, por favor, preencha o formulário abaixo com atenção.</p>
+            </header>
+
+            <form id="anamneseForm" class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg space-y-8">
+                <!-- Seção 1: Dados Pessoais -->
+                <fieldset class="space-y-4">
+                    <legend class="text-xl font-semibold text-gray-700 border-b-2 border-pink-200 pb-2 mb-4">DADOS PESSOAIS</legend>
+                    <div>
+                        <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1 required-label">Nome Completo</label>
+                        <input type="text" id="fullName" name="fullName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="birthDate" class="block text-sm font-medium text-gray-700 mb-1">Data de Nascimento</label>
+                            <input type="date" id="birthDate" name="birthDate" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1 required-label">Celular (WhatsApp)</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="(71) 99999-9999" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">E-mail</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition">
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2">Como nos conheceu?</p>
+                        <div class="flex flex-wrap gap-x-4 gap-y-2 text-gray-700">
+                            <label><input type="radio" name="howMet" value="Instagram" class="mr-2 focus:ring-pink-500 text-pink-600">Instagram</label>
+                            <label><input type="radio" name="howMet" value="Indicação" class="mr-2 focus:ring-pink-500 text-pink-600">Indicação</label>
+                            <label><input type="radio" name="howMet" value="Google" class="mr-2 focus:ring-pink-500 text-pink-600">Google</label>
+                            <label><input type="radio" name="howMet" value="Outro" class="mr-2 focus:ring-pink-500 text-pink-600">Outro</label>
+                        </div>
+                         <input type="text" id="howMetOther" name="howMetOther" placeholder="Se outro, especifique aqui..." class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition hidden">
+                    </div>
+                </fieldset>
+    
+                <!-- Seção 2: Procedimento Desejado -->
+                <fieldset class="space-y-4">
+                    <legend class="text-xl font-semibold text-gray-700 border-b-2 border-pink-200 pb-2 mb-4 required-label">PROCEDIMENTO DESEJADO</legend>
+                    <p id="procedureError" class="text-red-500 text-sm -mt-4 hidden pb-2">Por favor, selecione ao menos um procedimento.</p>
+                     <div class="space-y-2 text-gray-700">
+                        <label class="flex items-center"><input type="checkbox" name="procedure" value="Design de Sobrancelhas (Pinça/Linha/Cera)" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Design de Sobrancelhas (Pinça/Linha/Cera)</label>
+                        <label class="flex items-center"><input type="checkbox" name="procedure" value="Design com Aplicação de Henna" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Design com Aplicação de Henna</label>
+                        <label class="flex items-center"><input type="checkbox" name="procedure" value="Brow Lamination" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Brow Lamination</label>
+                        <label class="flex items-center"><input type="checkbox" name="procedure" value="Outro" id="procedureOtherCheckbox" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Outro</label>
+                    </div>
+                    <input type="text" id="procedureOther" name="procedureOther" placeholder="Se outro, qual procedimento?" class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition hidden">
+                </fieldset>
+                
+                <!-- Seção 3: Histórico de Saúde -->
+                <fieldset class="space-y-6">
+                    <legend class="text-xl font-semibold text-gray-700 border-b-2 border-pink-200 pb-2 mb-4">HISTÓRICO DE SAÚDE</legend>
+                     <p class="text-sm text-gray-600 -mt-2">Sua segurança é nossa prioridade. Por favor, seja sincera nas respostas.</p>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Possui algum tipo de alergia? (cosméticos, esmaltes, tinturas, metais, látex, etc)</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="allergies" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="allergies" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                        <input type="text" id="allergiesDetail" placeholder="Se sim, especifique..." class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg transition hidden">
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Está grávida ou amamentando?</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="pregnant" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="pregnant" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Qual o seu tipo de pele?</p>
+                        <div class="flex flex-wrap gap-x-4 gap-y-2 text-gray-700">
+                            <label><input type="radio" name="skinType" value="Seca" required class="mr-2 focus:ring-pink-500 text-pink-600">Seca</label>
+                            <label><input type="radio" name="skinType" value="Oleosa" class="mr-2 focus:ring-pink-500 text-pink-600">Oleosa</label>
+                            <label><input type="radio" name="skinType" value="Mista" class="mr-2 focus:ring-pink-500 text-pink-600">Mista</label>
+                            <label><input type="radio" name="skinType" value="Normal" class="mr-2 focus:ring-pink-500 text-pink-600">Normal</label>
+                        </div>
+                    </div>
+                     <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2">Possui alguma das seguintes condições?</p>
+                        <div class="space-y-2 text-sm text-gray-700">
+                            <label class="flex items-center"><input type="checkbox" name="otherHealth" value="Diabetes" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Diabetes</label>
+                            <label class="flex items-center"><input type="checkbox" name="otherHealth" value="Problema de cicatrização" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Problema de cicatrização</label>
+                            <label class="flex items-center"><input type="checkbox" name="otherHealth" value="Doença autoimune" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Doença autoimune</label>
+                            <label class="flex items-center"><input type="checkbox" name="otherHealth" value="Alergia grave (choque anafilático)" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Alergia grave (choque anafilático)</label>
+                            <label class="flex items-center"><input type="checkbox" id="otherHealthNone" value="Nenhuma" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Nenhuma das opções</label>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2">Possui alguma das seguintes condições de pele na região facial?</p>
+                        <div class="space-y-2 text-sm text-gray-700">
+                            <label class="flex items-center"><input type="checkbox" name="skinCondition" value="Dermatite / Eczema" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Dermatite / Eczema</label>
+                            <label class="flex items-center"><input type="checkbox" name="skinCondition" value="Psoríase" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Psoríase</label>
+                            <label class="flex items-center"><input type="checkbox" name="skinCondition" value="Rosácea" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Rosácea</label>
+                            <label class="flex items-center"><input type="checkbox" name="skinCondition" value="Acne ativa na região" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Acne ativa ou cística na região das sobrancelhas</label>
+                            <label class="flex items-center"><input type="checkbox" name="skinCondition" value="Pele extremamente sensível" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Pele extremamente sensível ou que marca com facilidade</label>
+                             <label class="flex items-center"><input type="checkbox" id="skinConditionNone" value="Nenhuma" class="mr-3 h-4 w-4 rounded text-pink-600 focus:ring-pink-500">Nenhuma das opções</label>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Possui lesões ativas (cortes, espinhas inflamadas) na área das sobrancelhas?</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="hasLesions" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="hasLesions" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Fez algum procedimento facial recentemente? (Peeling, microagulhamento, laser, etc)</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="recentProcedure" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="recentProcedure" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                        <input type="text" id="recentProcedureDetail" placeholder="Se sim, qual e quando?" class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg transition hidden">
+                    </div>
+                     <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Já fez Brow Lamination antes?</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="browLamination" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="browLamination" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                        <input type="date" id="browLaminationDetail" class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg transition hidden">
+                    </div>
+                     <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2 required-label">Faz uso contínuo de ácido na pele (ex: retinóico) ou Roacutan?</p>
+                        <div class="flex gap-4 text-gray-700"><label><input type="radio" name="medication" value="Não" required class="mr-2 focus:ring-pink-500 text-pink-600">Não</label><label><input type="radio" name="medication" value="Sim" class="mr-2 focus:ring-pink-500 text-pink-600">Sim</label></div>
+                        <input type="text" id="medicationDetail" placeholder="Se sim, especifique..." class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg transition hidden">
+                    </div>
+                </fieldset>
+    
+                <!-- Seção 4: Suas Expectativas -->
+                <fieldset class="space-y-4">
+                    <legend class="text-xl font-semibold text-gray-700 border-b-2 border-pink-200 pb-2 mb-4">SUAS EXPECTATIVAS</legend>
+                     <div>
+                        <label for="currentBrows" class="block text-sm font-medium text-gray-700 mb-1">Como você descreveria suas sobrancelhas hoje?</label>
+                        <textarea id="currentBrows" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition"></textarea>
+                    </div>
+                     <div>
+                        <label for="goal" class="block text-sm font-medium text-gray-700 mb-1">Qual é o seu principal objetivo com este procedimento?</label>
+                        <textarea id="goal" rows="2" placeholder="Ex: Mais volume, definição, arco mais marcado..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition"></textarea>
+                    </div>
+                    <div>
+                        <p class="block text-sm font-medium text-gray-700 mb-2">Em uma escala de 1 a 5, quão naturais ou marcadas você prefere?</p>
+                        <div class="flex justify-between text-xs text-gray-500 px-1"><span>Natural</span><span>Marcada</span></div>
+                        <input type="range" id="styleScale" min="1" max="5" value="3" class="w-full h-2 bg-pink-100 rounded-lg appearance-none cursor-pointer accent-pink-500">
+                        <div class="flex justify-between text-xs px-1 text-gray-700"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+                    </div>
+                </fieldset>
+    
+                <!-- Seção 5: Termo de Consentimento -->
+                <fieldset>
+                    <legend class="text-xl font-semibold text-gray-700 border-b-2 border-pink-200 pb-2 mb-4">TERMO DE CONSENTIMENTO E AUTORIZAÇÃO</legend>
+                    <div class="space-y-3 text-sm text-gray-600 bg-gray-50 p-4 rounded-lg">
+                        <p>Eu, <span id="clientNameDisplay" class="font-semibold text-gray-700">...</span>, declaro que todas as informações fornecidas nesta ficha são verdadeiras.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Fui devidamente informada sobre o procedimento, incluindo os cuidados pré e pós-procedimento.</li>
+                            <li>Estou ciente de que a omissão de qualquer informação sobre minha saúde é de minha inteira responsabilidade.</li>
+                            <li>Concordo em seguir as orientações profissionais para os cuidados em casa.</li>
+                        </ul>
+                    </div>
+                     <div class="mt-4 flex items-start">
+                        <input id="imageAuth" name="imageAuth" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-pink-600 focus:ring-pink-500 mt-1">
+                        <label for="imageAuth" class="ml-3 block text-sm text-gray-700">Autorizo o uso de imagens do resultado (antes e depois) para fins de divulgação profissional, com a devida proteção da minha identidade.</label>
+                    </div>
+                    <div class="mt-4">
+                         <label for="signature" class="block text-sm font-medium text-gray-700 mb-1 required-label">Assinatura Digital (digite seu nome completo)</label>
+                        <input type="text" id="signature" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition" placeholder="Digite seu nome completo aqui">
+                    </div>
+                </fieldset>
+    
+                <!-- Botão de Envio -->
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-transform transform hover:scale-105 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                        <span>Enviar via WhatsApp e Salvar Cadastro</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Conteúdo do Relatório -->
+        <div id="reportView" class="hidden">
+            <header class="mb-8">
+                <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Relatório de Clientes</h1>
+                <p class="text-gray-600 mt-2">Visualize e exporte os dados de todas as clientes cadastradas.</p>
+            </header>
+
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg">
+                <div class="flex flex-col sm:flex-row gap-2 mb-6">
+                    <button id="downloadCsv" class="w-full sm:w-auto flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition">Exportar para Excel (CSV)</button>
+                    <button id="downloadPdf" class="w-full sm:w-auto flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition">Exportar para PDF</button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Celular</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Procedimento</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Cadastro</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTableBody" class="bg-white divide-y divide-gray-200">
+                            <!-- Linhas da tabela serão inseridas aqui -->
+                        </tbody>
+                    </table>
+                     <p id="noClientsMessage" class="text-center py-8 text-gray-500 hidden">Nenhum cliente cadastrado ainda.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- Modal de Senha -->
+    <div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Acesso Restrito</h2>
+            <p class="text-gray-600 mb-4">Por favor, digite a senha para visualizar o relatório de clientes.</p>
+            <form id="passwordForm">
+                <input type="password" id="passwordInput" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition" placeholder="Sua senha">
+                <p id="passwordError" class="text-red-500 text-sm mt-2 hidden">Senha incorreta. Tente novamente.</p>
+                <div class="mt-6 flex justify-end gap-3">
+                    <button type="button" id="cancelPassword" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition">Entrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="text-center py-4 text-sm text-gray-500">
+        <p>Designer de Sobrancelhas: <strong>Jessica Rocha</strong></p>
+        <p class="mt-1">
+            <a href="https://www.instagram.com/jessicarochabrows" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:text-pink-600 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.282.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.231 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/></svg>
+                @jessicarochabrows
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const { jsPDF } = window.jspdf;
+            const form = document.getElementById('anamneseForm');
+            
+            // Lógica das Abas
+            const tabPrices = document.getElementById('tabPrices');
+            const tabForm = document.getElementById('tabForm');
+            const tabReport = document.getElementById('tabReport');
+            const pricesView = document.getElementById('pricesView');
+            const formView = document.getElementById('formView');
+            const reportView = document.getElementById('reportView');
+            const goToFormBtn = document.getElementById('goToFormBtn');
+            
+            // --- Elementos do Modal de Senha ---
+            const passwordModal = document.getElementById('passwordModal');
+            const passwordForm = document.getElementById('passwordForm');
+            const passwordInput = document.getElementById('passwordInput');
+            const cancelPassword = document.getElementById('cancelPassword');
+            const passwordError = document.getElementById('passwordError');
+
+            function showView(viewToShow, tabToActivate) {
+                [pricesView, formView, reportView].forEach(view => view.classList.add('hidden'));
+                [tabPrices, tabForm, tabReport].forEach(tab => tab.classList.remove('tab-active'));
+                
+                viewToShow.classList.remove('hidden');
+                tabToActivate.classList.add('tab-active');
+            }
+
+            tabPrices.addEventListener('click', () => showView(pricesView, tabPrices));
+            tabForm.addEventListener('click', () => showView(formView, tabForm));
+            goToFormBtn.addEventListener('click', () => showView(formView, tabForm));
+            
+            tabReport.addEventListener('click', () => {
+                if (sessionStorage.getItem('isAuthenticated') === 'true') {
+                    showView(reportView, tabReport);
+                    loadReport();
+                } else {
+                    openPasswordModal();
+                }
+            });
+
+            function openPasswordModal() {
+                passwordModal.classList.remove('hidden');
+                passwordInput.focus();
+            }
+
+            function closePasswordModal() {
+                passwordModal.classList.add('hidden');
+                passwordInput.value = '';
+                passwordError.classList.add('hidden');
+            }
+
+            passwordForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (passwordInput.value === 'Apolo@0606') {
+                    sessionStorage.setItem('isAuthenticated', 'true');
+                    closePasswordModal();
+                    showView(reportView, tabReport);
+                    loadReport();
+                } else {
+                    passwordError.classList.remove('hidden');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            });
+
+            cancelPassword.addEventListener('click', closePasswordModal);
+            passwordModal.addEventListener('click', (e) => {
+                if (e.target === passwordModal) closePasswordModal();
+            });
+
+            // Função para gerenciar campos condicionais (Sim/Não)
+            const setupConditionalField = (radioName, detailId) => {
+                const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+                const detailInput = document.getElementById(detailId);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (radio.value === 'Sim') {
+                            detailInput.classList.remove('hidden'); detailInput.required = true;
+                        } else {
+                            detailInput.classList.add('hidden'); detailInput.required = false; detailInput.value = '';
+                        }
+                    });
+                });
+            };
+
+            // Função para gerenciar campos condicionais (Outro)
+             const setupOtherField = (radioName, detailId, checkValue = 'Outro') => {
+                const radios = document.querySelectorAll(`input[name="${radioName}"]`);
+                const detailInput = document.getElementById(detailId);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        if (radio.checked && radio.value === checkValue) {
+                            detailInput.classList.remove('hidden'); detailInput.required = true;
+                        } else {
+                            detailInput.classList.add('hidden'); detailInput.required = false; detailInput.value = '';
+                        }
+                    });
+                });
+            };
+
+            setupConditionalField('allergies', 'allergiesDetail');
+            setupConditionalField('recentProcedure', 'recentProcedureDetail');
+            setupConditionalField('medication', 'medicationDetail');
+            setupOtherField('howMet', 'howMetOther');
+            
+            const procedureOtherCheckbox = document.getElementById('procedureOtherCheckbox');
+            const procedureOtherInput = document.getElementById('procedureOther');
+            procedureOtherCheckbox.addEventListener('change', () => {
+                if (procedureOtherCheckbox.checked) {
+                    procedureOtherInput.classList.remove('hidden');
+                    procedureOtherInput.required = true;
+                } else {
+                    procedureOtherInput.classList.add('hidden');
+                    procedureOtherInput.required = false;
+                    procedureOtherInput.value = '';
+                }
+            });
+
+            setupConditionalField('browLamination', 'browLaminationDetail');
+            
+            // Função genérica para checkbox "Nenhuma das opções"
+            const setupNoneCheckbox = (checkboxName, noneCheckboxId) => {
+                const checkboxes = document.querySelectorAll(`input[name="${checkboxName}"]`);
+                const noneCheckbox = document.getElementById(noneCheckboxId);
+
+                noneCheckbox.addEventListener('change', () => {
+                    if (noneCheckbox.checked) {
+                        checkboxes.forEach(box => {
+                            if(box !== noneCheckbox) { box.checked = false; box.disabled = true; }
+                        });
+                    } else {
+                         checkboxes.forEach(box => box.disabled = false);
+                    }
+                });
+                 checkboxes.forEach(box => {
+                    if(box !== noneCheckbox) {
+                        box.addEventListener('change', () => {
+                            if (box.checked) {
+                                noneCheckbox.checked = false; noneCheckbox.disabled = true;
+                            } else {
+                                const anyChecked = [...checkboxes].some(b => b !== noneCheckbox && b.checked);
+                                if (!anyChecked) {
+                                    noneCheckbox.disabled = false;
+                                }
+                            }
+                        });
+                    }
+                });
+            };
+
+            setupNoneCheckbox('skinCondition', 'skinConditionNone');
+            setupNoneCheckbox('otherHealth', 'otherHealthNone');
+
+
+            // Atualizar nome no termo de consentimento
+            const fullNameInput = document.getElementById('fullName');
+            const signatureInput = document.getElementById('signature');
+            const clientNameDisplay = document.getElementById('clientNameDisplay');
+            fullNameInput.addEventListener('input', () => {
+                clientNameDisplay.textContent = fullNameInput.value || '...';
+                signatureInput.value = fullNameInput.value;
+            });
+            signatureInput.addEventListener('input', () => {
+                fullNameInput.value = signatureInput.value;
+                clientNameDisplay.textContent = signatureInput.value || '...';
+            });
+            
+            // Envio do formulário
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const procedureError = document.getElementById('procedureError');
+                procedureError.classList.add('hidden');
+                
+                if (document.querySelectorAll('input[name="procedure"]:checked').length === 0) {
+                    procedureError.classList.remove('hidden');
+                    document.getElementById('procedureError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+
+                const getRadioValue = (name) => document.querySelector(`input[name="${name}"]:checked`)?.value || 'Não preenchido';
+                
+                // Dados Pessoais
+                const fullName = document.getElementById('fullName').value;
+                const birthDateValue = document.getElementById('birthDate').value;
+                const birthDate = birthDateValue ? new Date(birthDateValue).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'Não informado';
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value || 'Não informado';
+                let howMet = getRadioValue('howMet');
+                if (howMet === 'Outro') howMet += `: ${document.getElementById('howMetOther').value}`;
+                
+                // Procedimento
+                const proceduresSelected = [...document.querySelectorAll('input[name="procedure"]:checked')]
+                    .map(el => {
+                        if (el.value === 'Outro') {
+                            return `Outro: ${document.getElementById('procedureOther').value || 'não especificado'}`;
+                        }
+                        return el.value;
+                    });
+                const procedure = proceduresSelected.join(', ') || 'Não preenchido';
+
+                // Saúde
+                let allergies = getRadioValue('allergies');
+                if (allergies === 'Sim') allergies += `: ${document.getElementById('allergiesDetail').value}`;
+                const pregnant = getRadioValue('pregnant');
+                const skinType = getRadioValue('skinType');
+                const otherHealthIssues = [...document.querySelectorAll('input[name="otherHealth"]:checked')].map(el => el.value).join(', ') || 'Nenhuma informada';
+                const skinConditions = [...document.querySelectorAll('input[name="skinCondition"]:checked')].map(el => el.value).join(', ') || 'Nenhuma informada';
+                const hasLesions = getRadioValue('hasLesions');
+                let recentProcedure = getRadioValue('recentProcedure');
+                if (recentProcedure === 'Sim') recentProcedure += `: ${document.getElementById('recentProcedureDetail').value}`;
+                let browLamination = getRadioValue('browLamination');
+                if (browLamination === 'Sim') {
+                    const laminationDateValue = document.getElementById('browLaminationDetail').value;
+                    const laminationDate = laminationDateValue ? new Date(laminationDateValue).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'Data não informada';
+                    browLamination += `: ${laminationDate}`;
+                }
+                let medication = getRadioValue('medication');
+                if (medication === 'Sim') medication += `: ${document.getElementById('medicationDetail').value}`;
+
+                // Expectativas
+                const currentBrows = document.getElementById('currentBrows').value || 'Não preenchido';
+                const goal = document.getElementById('goal').value || 'Não preenchido';
+                const styleScale = document.getElementById('styleScale').value;
+                
+                // Termos
+                const imageAuth = document.getElementById('imageAuth').checked ? 'Sim' : 'Não';
+                const signature = document.getElementById('signature').value;
+                const today = new Date();
+                const todayFormatted = today.toLocaleDateString('pt-BR');
+
+                // --- SALVAR DADOS LOCALMENTE ---
+                const clientRecord = {
+                    id: Date.now(),
+                    name: fullName,
+                    phone: phone,
+                    procedure: proceduresSelected.map(p => p.split(' (')[0]).join(', '), // Simplifica o nome do procedimento
+                    registrationDate: todayFormatted,
+                    fullData: { // Guarda todos os detalhes para a mensagem do WhatsApp
+                        fullName, birthDate, phone, email, howMet, procedure,
+                        allergies, pregnant, skinType, otherHealthIssues, skinConditions, hasLesions, recentProcedure, browLamination, medication,
+                        currentBrows, goal, styleScale, imageAuth, signature, todayFormatted
+                    }
+                };
+
+                const clients = JSON.parse(localStorage.getItem('clients')) || [];
+                clients.push(clientRecord);
+                localStorage.setItem('clients', JSON.stringify(clients));
+                
+                // --- MONTAGEM DA MENSAGEM ---
+                const message = `
+*✨ FICHA DE ANAMNESE PREENCHIDA ✨*
+*Data:* ${todayFormatted}
+
+*--- DADOS PESSOAIS ---*
+*Nome:* ${fullName}
+*Nascimento:* ${birthDate}
+*Celular:* ${phone}
+*E-mail:* ${email}
+*Como conheceu:* ${howMet}
+
+*--- PROCEDIMENTO DESEJADO ---*
+*Serviço:* ${procedure}
+
+*--- HISTÓRICO DE SAÚDE ---*
+*Alergias?* ${allergies}
+*Grávida/Amamentando?* ${pregnant}
+*Tipo de Pele:* ${skinType}
+*Outras Condições:* ${otherHealthIssues}
+*Condições de Pele:* ${skinConditions}
+*Lesões Ativas na Área?* ${hasLesions}
+*Procedimento Facial Recente?* ${recentProcedure}
+*Já fez Brow Lamination?* ${browLamination}
+*Uso de Ácidos/Roacutan?* ${medication}
+
+*--- EXPECTATIVAS ---*
+*Sobrancelhas Hoje:* ${currentBrows}
+*Objetivo:* ${goal}
+*Escala (1-Natural a 5-Marcada):* ${styleScale}
+
+*--- TERMO DE CONSENTIMENTO ---*
+*Autoriza Uso de Imagem?* ${imageAuth}
+*Assinatura Digital:* ${signature}
+
+-----------------------------
+Formulário preenchido por ${fullName}.
+                `.trim();
+                
+                const whatsappNumber = '5571986301001';
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+                
+                window.open(whatsappUrl, '_blank');
+                
+                const confirmationModal = document.createElement('div');
+                confirmationModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                confirmationModal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm text-center">
+                        <h2 class="text-xl font-bold mb-4 text-gray-800">Cadastro Salvo!</h2>
+                        <p class="text-gray-600 mb-6">As informações foram salvas no relatório e a mensagem para o WhatsApp foi preparada.</p>
+                        <button id="closeConfirmModal" class="px-6 py-2 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(confirmationModal);
+                document.getElementById('closeConfirmModal').onclick = () => {
+                    document.body.removeChild(confirmationModal);
+                    form.reset();
+                    clientNameDisplay.textContent = '...';
+                };
+
+            });
+
+            // Lógica do Relatório
+            function loadReport() {
+                const clients = JSON.parse(localStorage.getItem('clients')) || [];
+                const tableBody = document.getElementById('reportTableBody');
+                const noClientsMessage = document.getElementById('noClientsMessage');
+                tableBody.innerHTML = '';
+
+                if (clients.length === 0) {
+                    noClientsMessage.classList.remove('hidden');
+                } else {
+                    noClientsMessage.classList.add('hidden');
+                    clients.forEach(client => {
+                        const row = `
+                            <tr class="hover:bg-pink-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${client.name}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${client.phone}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${client.procedure}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${client.registrationDate}</td>
+                            </tr>
+                        `;
+                        tableBody.innerHTML += row;
+                    });
+                }
+            }
+
+            // Exportar para CSV
+            document.getElementById('downloadCsv').addEventListener('click', () => {
+                const clients = JSON.parse(localStorage.getItem('clients')) || [];
+                if (clients.length === 0) { alert('Nenhum cliente para exportar.'); return; }
+
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "Nome,Celular,Procedimento,Data do Cadastro\n"; // Cabeçalho
+                clients.forEach(client => {
+                    csvContent += `${client.name},${client.phone},${client.procedure},${client.registrationDate}\n`;
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "relatorio_clientes.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Exportar para PDF
+            document.getElementById('downloadPdf').addEventListener('click', () => {
+                const clients = JSON.parse(localStorage.getItem('clients')) || [];
+                if (clients.length === 0) { alert('Nenhum cliente para exportar.'); return; }
+
+                const doc = new jsPDF();
+                doc.text("Relatório de Clientes", 14, 16);
+                doc.setFontSize(10);
+                doc.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')}`, 14, 22);
+
+                const tableColumn = ["Nome", "Celular", "Procedimento", "Data do Cadastro"];
+                const tableRows = [];
+
+                clients.forEach(client => {
+                    const clientData = [
+                        client.name,
+                        client.phone,
+                        client.procedure,
+                        client.registrationDate
+                    ];
+                    tableRows.push(clientData);
+                });
+
+                doc.autoTable(tableColumn, tableRows, { startY: 30 });
+                doc.save('relatorio_clientes.pdf');
+            });
+        });
+    </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
+
